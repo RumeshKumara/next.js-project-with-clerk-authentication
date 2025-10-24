@@ -8,7 +8,8 @@ export default async function Setup() {
 
   // Set default role if not set (server action)
   if (!(user.privateMetadata as any)?.role) {
-    await clerkClient.users.updateUserMetadata(user.id, {
+    const client = await clerkClient();
+    await client.users.updateUserMetadata(user.id, {
       privateMetadata: { role: "customer" },
     });
     redirect("/"); // Redirect to home after setting
